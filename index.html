@@ -3,93 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>El Árbol del Amor ❤️</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap" rel="stylesheet">
+<title>Árbol del Amor</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-background:radial-gradient(circle at top,#1a001f,#000);
+background:#0f0f14;
 overflow:hidden;
-color:white;
 font-family:'Poppins',sans-serif;
+color:white;
 text-align:center;
 }
 
 h1{
-font-family:'Great Vibes',cursive;
-font-size:3.5rem;
 margin-top:30px;
-color:#ff4da6;
-text-shadow:0 0 15px #ff4da6;
+font-weight:500;
 }
 
-.tree{
-position:relative;
-width:100%;
-height:70vh;
-}
-
-.trunk{
-position:absolute;
-bottom:0;
-left:50%;
-transform:translateX(-50%);
-width:40px;
-height:250px;
-background:#2b1b0f;
-border-radius:20px;
-box-shadow:0 0 20px #ff4da6;
-}
-
-.branch{
-position:absolute;
-width:200px;
-height:10px;
-background:#2b1b0f;
-top:200px;
-border-radius:20px;
-}
-
-.left{
-left:calc(50% - 200px);
-transform:rotate(-35deg);
-}
-
-.right{
-right:calc(50% - 200px);
-transform:rotate(35deg);
-}
-
-.heart{
-position:absolute;
-color:#ff4da6;
-font-size:20px;
-animation:glow 2s infinite alternate, float 4s infinite ease-in-out;
-}
-
-@keyframes glow{
-from{text-shadow:0 0 5px #ff4da6;}
-to{text-shadow:0 0 20px #ff1a8c;}
-}
-
-@keyframes float{
-0%{transform:translateY(0);}
-50%{transform:translateY(-15px);}
-100%{transform:translateY(0);}
+canvas{
+display:block;
+margin:auto;
 }
 
 button{
 margin-top:20px;
-padding:12px 35px;
-background:#ff1a8c;
+padding:12px 30px;
 border:none;
-color:white;
-font-size:1.2rem;
 border-radius:30px;
+background:#ff2e88;
+color:white;
+font-size:1rem;
 cursor:pointer;
-box-shadow:0 0 15px #ff1a8c;
+box-shadow:0 0 15px #ff2e88;
 transition:0.3s;
 }
 
@@ -97,12 +43,11 @@ button:hover{
 transform:scale(1.1);
 }
 
-.hidden{
-display:none;
-margin-top:20px;
-font-size:1.5rem;
-color:#ff4da6;
-text-shadow:0 0 15px #ff4da6;
+#mensaje{
+margin-top:15px;
+font-size:1.2rem;
+opacity:0;
+transition:0.5s;
 }
 </style>
 </head>
@@ -111,33 +56,61 @@ text-shadow:0 0 15px #ff4da6;
 
 <h1>Geraldine Arias Idarraga</h1>
 
-<div class="tree">
-<div class="trunk"></div>
-<div class="branch left"></div>
-<div class="branch right"></div>
-</div>
+<canvas id="treeCanvas"></canvas>
 
-<button onclick="showMessage()">¿Serías mi San Valentín? 💖</button>
+<button onclick="mostrar()">¿Quieres ser mi San Valentín?</button>
 
-<div id="message" class="hidden">
-✨ Entonces este árbol crecerá contigo ✨
-</div>
+<div id="mensaje">Entonces este árbol sigue creciendo contigo.</div>
 
 <script>
-const tree=document.querySelector(".tree");
+const canvas=document.getElementById("treeCanvas");
+const ctx=canvas.getContext("2d");
 
-for(let i=0;i<50;i++){
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤";
-heart.style.left=(window.innerWidth/2 -150 + Math.random()*300)+"px";
-heart.style.top=(100 + Math.random()*200)+"px";
-heart.style.animationDelay=Math.random()*4+"s";
-tree.appendChild(heart);
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight*0.65;
+
+let branches=[];
+
+function branch(x,y,len,angle,depth){
+if(depth===0) return;
+
+let x2=x+len*Math.cos(angle);
+let y2=y+len*Math.sin(angle);
+
+branches.push({x,y,x2,y2});
+
+setTimeout(()=>{
+branch(x2,y2,len*0.75,angle-0.4,depth-1);
+branch(x2,y2,len*0.75,angle+0.4,depth-1);
+},300);
 }
 
-function showMessage(){
-document.getElementById("message").classList.remove("hidden");
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.strokeStyle="#ff2e88";
+ctx.lineWidth=2;
+ctx.shadowBlur=15;
+ctx.shadowColor="#ff2e88";
+
+branches.forEach(b=>{
+ctx.beginPath();
+ctx.moveTo(b.x,b.y);
+ctx.lineTo(b.x2,b.y2);
+ctx.stroke();
+});
+}
+
+branch(canvas.width/2,canvas.height,100,-Math.PI/2,8);
+
+function animate(){
+draw();
+requestAnimationFrame(animate);
+}
+
+animate();
+
+function mostrar(){
+document.getElementById("mensaje").style.opacity="1";
 }
 </script>
 
