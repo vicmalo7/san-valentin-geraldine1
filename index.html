@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Árbol del Amor 🌳❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #1a1a1a, #000);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    overflow: hidden;
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    color: #e6c07b;
+    margin-top: 30px;
+}
+
+p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.container {
+    position: relative;
+    height: 70vh;
+}
+
+svg {
+    width: 400px;
+    margin-top: 20px;
+}
+
+.heart {
+    fill: #ff4d6d;
+    opacity: 0;
+    transform-origin: center;
+    animation: grow 3s forwards;
+}
+
+@keyframes grow {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+button {
+    margin-top: 30px;
+    padding: 15px 35px;
+    border-radius: 40px;
+    border: 2px solid #e6c07b;
+    background: transparent;
+    color: #e6c07b;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+button:hover {
+    background: #e6c07b;
+    color: black;
+    box-shadow: 0 0 20px #e6c07b;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Geraldine</h1>
+<p>
+Nuestro amor no es casualidad…  
+es como un árbol que crece fuerte, elegante y eterno.
+</p>
+
+<div class="container">
+<svg viewBox="0 0 400 500">
+
+<!-- Tronco -->
+<path d="M200 500 Q180 400 200 300 Q220 200 200 100"
+      stroke="#8B4513" stroke-width="15" fill="none"/>
+
+<!-- Ramas -->
+<path d="M200 300 Q140 250 100 200"
+      stroke="#8B4513" stroke-width="8" fill="none"/>
+<path d="M200 300 Q260 250 300 200"
+      stroke="#8B4513" stroke-width="8" fill="none"/>
+<path d="M200 250 Q150 180 120 140"
+      stroke="#8B4513" stroke-width="6" fill="none"/>
+<path d="M200 250 Q250 180 280 140"
+      stroke="#8B4513" stroke-width="6" fill="none"/>
+
+<!-- Corazones -->
+<g>
+<path class="heart" d="M100 200 C100 170 140 170 140 200 C140 230 100 250 100 270 C100 250 60 230 60 200 C60 170 100 170 100 200" style="animation-delay:0.5s"/>
+<path class="heart" d="M300 200 C300 170 340 170 340 200 C340 230 300 250 300 270 C300 250 260 230 260 200 C260 170 300 170 300 200" style="animation-delay:1s"/>
+<path class="heart" d="M120 140 C120 120 150 120 150 140 C150 160 120 175 120 190 C120 175 90 160 90 140 C90 120 120 120 120 140" style="animation-delay:1.5s"/>
+<path class="heart" d="M280 140 C280 120 310 120 310 140 C310 160 280 175 280 190 C280 175 250 160 250 140 C250 120 280 120 280 140" style="animation-delay:2s"/>
+</g>
+
+</svg>
+</div>
+
+<button onclick="respuesta()">¿Quieres ser mi San Valentín? ❤️</button>
+
+<script>
+function respuesta() {
+    document.body.innerHTML = `
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:black;color:#e6c07b;text-align:center;font-family:'Great Vibes',cursive;">
+        <h1 style="font-size:4rem;">Nuestro árbol seguirá creciendo ❤️</h1>
+        <h2 style="font-family:'Playfair Display',serif;color:white;margin-top:20px;">
+            Te amo, Geraldine Arias Idarraga.
+        </h2>
+    </div>
+    `;
+}
+</script>
+
+</body>
+</html>
