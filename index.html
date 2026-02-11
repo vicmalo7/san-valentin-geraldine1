@@ -3,116 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Árbol del Amor</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<title>Árbol del Amor ❤️</title>
 
 <style>
 body{
-margin:0;
-background:#0f0f14;
-overflow:hidden;
-font-family:'Poppins',sans-serif;
-color:white;
-text-align:center;
+    margin:0;
+    background:#f7e7d7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
 }
 
-h1{
-margin-top:30px;
-font-weight:500;
+.container{
+    position:relative;
+    width:400px;
+    height:500px;
 }
 
-canvas{
-display:block;
-margin:auto;
+/* TRONCO */
+.trunk{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:40px;
+    height:200px;
+    background:#8b5a2b;
+    clip-path:polygon(40% 0%, 60% 0%, 70% 100%, 30% 100%);
 }
 
-button{
-margin-top:20px;
-padding:12px 30px;
-border:none;
-border-radius:30px;
-background:#ff2e88;
-color:white;
-font-size:1rem;
-cursor:pointer;
-box-shadow:0 0 15px #ff2e88;
-transition:0.3s;
+/* CORAZONES */
+.heart{
+    position:absolute;
+    width:18px;
+    height:18px;
+    background:red;
+    transform:rotate(45deg);
+    animation:float 4s ease-in-out infinite;
 }
 
-button:hover{
-transform:scale(1.1);
+.heart::before,
+.heart::after{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    background:red;
+    border-radius:50%;
 }
 
-#mensaje{
-margin-top:15px;
-font-size:1.2rem;
-opacity:0;
-transition:0.5s;
+.heart::before{
+    top:-9px;
+    left:0;
+}
+
+.heart::after{
+    left:-9px;
+    top:0;
+}
+
+/* Animación suave */
+@keyframes float{
+    0%{ transform:rotate(45deg) translateY(0px); }
+    50%{ transform:rotate(45deg) translateY(-8px); }
+    100%{ transform:rotate(45deg) translateY(0px); }
 }
 </style>
 </head>
-
 <body>
 
-<h1>Geraldine Arias Idarraga</h1>
-
-<canvas id="treeCanvas"></canvas>
-
-<button onclick="mostrar()">¿Quieres ser mi San Valentín?</button>
-
-<div id="mensaje">Entonces este árbol sigue creciendo contigo.</div>
+<div class="container">
+    <div class="trunk"></div>
+</div>
 
 <script>
-const canvas=document.getElementById("treeCanvas");
-const ctx=canvas.getContext("2d");
+const container = document.querySelector(".container");
 
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight*0.65;
+/* Función que genera corazones formando un corazón gigante */
+function createHeartShape() {
 
-let branches=[];
+    const scale = 12; // tamaño del corazón gigante
 
-function branch(x,y,len,angle,depth){
-if(depth===0) return;
+    for(let t = 0; t < Math.PI * 2; t += 0.2){
 
-let x2=x+len*Math.cos(angle);
-let y2=y+len*Math.sin(angle);
-
-branches.push({x,y,x2,y2});
-
-setTimeout(()=>{
-branch(x2,y2,len*0.75,angle-0.4,depth-1);
-branch(x2,y2,len*0.75,angle+0.4,depth-1);
-},300);
-}
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.strokeStyle="#ff2e88";
-ctx.lineWidth=2;
-ctx.shadowBlur=15;
-ctx.shadowColor="#ff2e88";
-
-branches.forEach(b=>{
-ctx.beginPath();
-ctx.moveTo(b.x,b.y);
-ctx.lineTo(b.x2,b.y2);
-ctx.stroke();
-});
-}
-
-branch(canvas.width/2,canvas.height,100,-Math.PI/2,8);
-
-function animate(){
-draw();
-requestAnimationFrame(animate);
-}
-
-animate();
-
-function mostrar(){
-document.getElementById("mensaje").style.opacity="1";
-}
-</script>
-
-</body>
-</html>
+        const x = scale * 16 * Math.pow(Math.sin(
