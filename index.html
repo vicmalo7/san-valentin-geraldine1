@@ -3,39 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Geraldine 🌿</title>
+<title>El Árbol del Amor ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-background:linear-gradient(to bottom,#f8f4ec,#e8dfcf);
-font-family:'Cormorant Garamond',serif;
-text-align:center;
-color:#3b2f2f;
+background:radial-gradient(circle at top,#1a001f,#000);
 overflow:hidden;
+color:white;
+font-family:'Poppins',sans-serif;
+text-align:center;
 }
 
 h1{
-margin-top:40px;
-font-family:'Playfair Display',serif;
-font-size:3rem;
-letter-spacing:1px;
+font-family:'Great Vibes',cursive;
+font-size:3.5rem;
+margin-top:30px;
+color:#ff4da6;
+text-shadow:0 0 15px #ff4da6;
 }
 
-p{
-font-size:1.4rem;
-width:70%;
-margin:auto;
-margin-top:20px;
-line-height:1.6;
-}
-
-.container{
+.tree{
 position:relative;
-height:500px;
-margin-top:40px;
+width:100%;
+height:70vh;
 }
 
 .trunk{
@@ -43,68 +36,73 @@ position:absolute;
 bottom:0;
 left:50%;
 transform:translateX(-50%);
-width:30px;
-height:220px;
-background:#4b3621;
+width:40px;
+height:250px;
+background:#2b1b0f;
 border-radius:20px;
+box-shadow:0 0 20px #ff4da6;
 }
 
 .branch{
 position:absolute;
-width:120px;
+width:200px;
 height:10px;
-background:#4b3621;
+background:#2b1b0f;
 top:200px;
 border-radius:20px;
 }
 
 .left{
-left:calc(50% - 120px);
-transform:rotate(-30deg);
+left:calc(50% - 200px);
+transform:rotate(-35deg);
 }
 
 .right{
-right:calc(50% - 120px);
-transform:rotate(30deg);
+right:calc(50% - 200px);
+transform:rotate(35deg);
 }
 
-.leaf{
+.heart{
 position:absolute;
-width:14px;
-height:14px;
-background:gold;
-border-radius:50%;
-animation:float 6s infinite ease-in-out;
-opacity:0.8;
+color:#ff4da6;
+font-size:20px;
+animation:glow 2s infinite alternate, float 4s infinite ease-in-out;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 5px #ff4da6;}
+to{text-shadow:0 0 20px #ff1a8c;}
 }
 
 @keyframes float{
 0%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
+50%{transform:translateY(-15px);}
 100%{transform:translateY(0);}
 }
 
 button{
-margin-top:40px;
-padding:14px 40px;
+margin-top:20px;
+padding:12px 35px;
+background:#ff1a8c;
+border:none;
+color:white;
 font-size:1.2rem;
-border:1px solid #3b2f2f;
-background:transparent;
+border-radius:30px;
 cursor:pointer;
-transition:all 0.4s ease;
-font-family:'Playfair Display',serif;
+box-shadow:0 0 15px #ff1a8c;
+transition:0.3s;
 }
 
 button:hover{
-background:#3b2f2f;
-color:white;
-letter-spacing:2px;
+transform:scale(1.1);
 }
 
 .hidden{
 display:none;
-font-size:1.6rem;
-margin-top:30px;
+margin-top:20px;
+font-size:1.5rem;
+color:#ff4da6;
+text-shadow:0 0 15px #ff4da6;
 }
 </style>
 </head>
@@ -113,36 +111,31 @@ margin-top:30px;
 
 <h1>Geraldine Arias Idarraga</h1>
 
-<p>
-Como las raíces sostienen al árbol, así tu presencia sostiene mi mundo.
-Con respeto, admiración y el corazón en la mano…
-</p>
-
-<div class="container">
+<div class="tree">
 <div class="trunk"></div>
 <div class="branch left"></div>
 <div class="branch right"></div>
-
-<script>
-for(let i=0;i<30;i++){
-let leaf=document.createElement("div");
-leaf.className="leaf";
-leaf.style.top=Math.random()*200+"px";
-leaf.style.left=(window.innerWidth/2 - 100 + Math.random()*200)+"px";
-leaf.style.animationDelay=Math.random()*6+"s";
-document.querySelector(".container").appendChild(leaf);
-}
-</script>
-
 </div>
 
-<button onclick="showMessage()">¿Aceptarías ser mi San Valentín?</button>
+<button onclick="showMessage()">¿Serías mi San Valentín? 💖</button>
 
 <div id="message" class="hidden">
-🌿 Prometo cuidarte como el árbol cuida cada una de sus hojas.
+✨ Entonces este árbol crecerá contigo ✨
 </div>
 
 <script>
+const tree=document.querySelector(".tree");
+
+for(let i=0;i<50;i++){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤";
+heart.style.left=(window.innerWidth/2 -150 + Math.random()*300)+"px";
+heart.style.top=(100 + Math.random()*200)+"px";
+heart.style.animationDelay=Math.random()*4+"s";
+tree.appendChild(heart);
+}
+
 function showMessage(){
 document.getElementById("message").classList.remove("hidden");
 }
