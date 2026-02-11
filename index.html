@@ -3,89 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Árbol del Amor ❤️</title>
+<title>San Valentín ❤️</title>
 
 <style>
 body{
     margin:0;
-    background:#f7e7d7;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+    background:linear-gradient(to top,#f8e1d4,#ffd6ec);
+    font-family: 'Segoe UI', sans-serif;
     overflow:hidden;
+    text-align:center;
+}
+
+h1{
+    margin-top:30px;
+    font-size:28px;
+    color:#c2185b;
 }
 
 .container{
     position:relative;
-    width:400px;
-    height:500px;
+    width:100%;
+    height:60vh;
 }
 
-/* TRONCO */
+/* Tronco */
 .trunk{
     position:absolute;
     bottom:0;
     left:50%;
     transform:translateX(-50%);
-    width:40px;
-    height:200px;
+    width:30px;
+    height:160px;
     background:#8b5a2b;
-    clip-path:polygon(40% 0%, 60% 0%, 70% 100%, 30% 100%);
+    border-radius:10px;
 }
 
-/* CORAZONES */
+/* Corazón base */
 .heart{
     position:absolute;
-    width:18px;
-    height:18px;
+    width:16px;
+    height:16px;
     background:red;
     transform:rotate(45deg);
-    animation:float 4s ease-in-out infinite;
+    animation:pulse 3s infinite ease-in-out;
 }
 
 .heart::before,
 .heart::after{
     content:"";
     position:absolute;
-    width:18px;
-    height:18px;
-    background:red;
+    width:16px;
+    height:16px;
+    background:inherit;
     border-radius:50%;
 }
 
-.heart::before{
-    top:-9px;
-    left:0;
+.heart::before{ top:-8px; left:0; }
+.heart::after{ left:-8px; top:0; }
+
+@keyframes pulse{
+    0%,100%{ transform:rotate(45deg) scale(1); }
+    50%{ transform:rotate(45deg) scale(1.2); }
 }
 
-.heart::after{
-    left:-9px;
-    top:0;
+/* BOTONES */
+.buttons{
+    margin-top:20px;
 }
 
-/* Animación suave */
-@keyframes float{
-    0%{ transform:rotate(45deg) translateY(0px); }
-    50%{ transform:rotate(45deg) translateY(-8px); }
-    100%{ transform:rotate(45deg) translateY(0px); }
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin:10px;
+    transition:0.3s;
+}
+
+#yes{
+    background:#ff4d6d;
+    color:white;
+}
+
+#no{
+    background:#ccc;
+}
+
+/* Pantalla final */
+#final{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(to top,#ff4d6d,#ff8fab);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+    font-size:30px;
+    display:none;
 }
 </style>
 </head>
 <body>
 
+<h1>Geraldine Arias Idarraga,<br>¿quieres ser mi San Valentín? 💖</h1>
+
 <div class="container">
     <div class="trunk"></div>
+</div>
+
+<div class="buttons">
+    <button id="yes">Sí 💘</button>
+    <button id="no">No 😢</button>
+</div>
+
+<div id="final">
+    💍 Sabía que dirías que sí ❤️<br>
+    Te amo infinitamente ✨
 </div>
 
 <script>
 const container = document.querySelector(".container");
 
-/* Función que genera corazones formando un corazón gigante */
-function createHeartShape() {
+/* Crear corazón gigante */
+function createTree(){
+    const scale = 10;
 
-    const scale = 12; // tamaño del corazón gigante
+    for(let t=0; t<Math.PI*2; t+=0.15){
 
-    for(let t = 0; t < Math.PI * 2; t += 0.2){
+        const x = scale * 16 * Math.pow(Math.sin(t),3);
+        const y = -scale * (
+            13*Math.cos(t)
+            -5*Math.cos(2*t)
+            -2*Math.cos(3*t)
+            -Math.cos(4*t)
+        );
 
-        const x = scale * 16 * Math.pow(Math.sin(
+        const heart = document.createElement("div");
+        heart.className="heart";
+
+        heart.style.left = window.innerWidth/2 + x - 8 + "px";
+        heart.style.top = 250 + y + "px";
+
+        heart.style.background = `hsl(${Math.random()*20},100%,60%)`;
+        heart.style.animationDuration = (2+Math.random()*2)+"s";
+
+        container.appendChild(heart);
+    }
+}
+
+createTree();
+
+/* Botón NO que huye */
+const noBtn = document.getElementById("no");
+
+noBtn.addEventListener("mouseover",()=>{
+    const x = Math.random()* (window.innerWidth - 100);
+    const y = Math.random()* (window.innerHeight - 100);
+    noBtn.style.position="absolute";
+    noBtn.style.left=x+"px";
+    noBtn.style.top=y+"px";
+});
+
+/* Botón SÍ */
+document.getElementById("yes").onclick = ()=>{
+    document.getElementById("final").style.display="flex";
+};
+</script>
+
+</body>
+</html>
